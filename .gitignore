@@ -1,5 +1,6 @@
 *.d.ts
 *.js
+!functions/visits/index.js
 node_modules
 cdktf.out
 cdktf.log
@@ -9,3 +10,4 @@ cdktf.log
 tsconfig.tsbuildinfo
 !jest.config.js
 !setup.js
+*/dist/*
