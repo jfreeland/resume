@@ -22,7 +22,7 @@ export class FrontendApp extends TerraformStack {
     });
 
     const siteName = "joey.free.land";
-    const siteDomain = "free.land"
+    const siteDomain = "free.land";
     const stackName = "frontend";
 
     new S3Backend(this, {
@@ -67,13 +67,6 @@ export class FrontendApp extends TerraformStack {
         contentType: "text/html",
       });
     }
-
-    new S3Object(this, stackName + "favicon", {
-      bucket: bucket.id,
-      key: "favicon.ico",
-      source: assets.path + "/favicon.ico",
-      contentType: "image/x-icon",
-    });
 
     new S3BucketPublicAccessBlock(this, stackName + "_s3BlockPublicAccess", {
       bucket: bucket.id,
@@ -132,7 +125,11 @@ export class FrontendApp extends TerraformStack {
       apiToken: process.env.CLOUDFLARE_API_KEY,
     });
 
-    const cfAccount = new DataCloudflareAccounts(this, stackName + "_cfAccount", {});
+    const cfAccount = new DataCloudflareAccounts(
+      this,
+      stackName + "_cfAccount",
+      {},
+    );
     const cfZone = new DataCloudflareZone(this, stackName + "_cfZone", {
       accountId: cfAccount.accounts.get(0).id,
       name: siteDomain,
@@ -148,3 +145,4 @@ export class FrontendApp extends TerraformStack {
     });
   }
 }
+
